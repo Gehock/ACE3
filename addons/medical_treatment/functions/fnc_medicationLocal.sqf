@@ -30,8 +30,18 @@ if (!alive _patient) exitWith {};
 if (!GVAR(advancedMedication)) exitWith {
     switch (_classname) do {
         case "Morphine": {
-            private _painSuppress = GET_PAIN_SUPPRESS(_patient);
-            _patient setVariable [VAR_PAIN_SUPP, (_painSuppress + MORPHINE_PAIN_SUPPRESSION) min 1, true];
+            private _defaultConfig = configFile >> QUOTE(ADDON) >> "Medication";
+            private _medicationConfig = _defaultConfig >> _classname;
+
+            private _timeTillMaxEffect      = GET_NUMBER(_medicationConfig >> "timeTillMaxEffect",getNumber (_defaultConfig >> "timeTillMaxEffect"));
+            private _timeInSystem           = GET_NUMBER(_medicationConfig >> "timeInSystem",getNumber (_defaultConfig >> "timeInSystem")) / 3;
+            private _heartRateChange        = 0;
+            private _painReduce             = GET_NUMBER(_medicationConfig >> "painReduce",getNumber (_defaultConfig >> "painReduce"));
+            private _viscosityChange        = 0;
+
+            // Adjust the medication effects and add the medication to the list
+            TRACE_3("adjustments",_heartRateChange,_painReduce,_viscosityChange);
+            [_patient, _className, _timeTillMaxEffect, _timeInSystem, _heartRateChange, _painReduce, _viscosityChange] call EFUNC(medical_status,addMedicationAdjustment);
         };
         case "Epinephrine": {
             [QEGVAR(medical,WakeUp), _patient] call CBA_fnc_localEvent;
