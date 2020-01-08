@@ -139,6 +139,12 @@
             <Chinese>啟用是否能對自己注射點滴</Chinese>
             <Czech>Umožňuje aplikovat IV transfuze na sama sebe.</Czech>
         </Key>
+        <Key ID="STR_ACE_Medical_Treatment_MedicIV_DisplayName">
+            <English>Allow IV</English>
+        </Key>
+        <Key ID="STR_ACE_Medical_Treatment_MedicIV_Description">
+            <English>Training level required to perform IV transfusion.</English>
+        </Key>
         <Key ID="STR_ACE_Medical_Treatment_AllowSharedEquipment_DisplayName">
             <English>Allow Shared Equipment</English>
             <Japanese>装備共有を許可</Japanese>
